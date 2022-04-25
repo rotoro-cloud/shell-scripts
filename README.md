@@ -35,6 +35,8 @@
       DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
       -- drop database 'test'
       DROP DATABASE IF EXISTS test;
+      -- create database 'laravel'
+      CREATE DATABASE laravel;
       -- also make sure there are lingering permissions to it
       DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
       -- make changes immediately
@@ -169,7 +171,7 @@
       ```
     - Подтянем зависимости проекта 
       ```
-      composer install
+      composer update
       ```
     - Выполним создание ключа приложения 
       ```
@@ -186,8 +188,10 @@
     - Дадим доступ нужным директориям
       ```
       chown -R nginx.nginx /usr/share/nginx/html/;
+      mkdir -p /usr/share/nginx/html/storage/logs
+      mkdir -p /usr/share/nginx/html/bootstrap/cache;
       chmod -R ug+rwx /usr/share/nginx/html/storage /usr/share/nginx/html/bootstrap/cache;
-      chmod -R o+rwx /usr/share/nginx/html/storage/logs;)
+      chmod -R o+rwx /usr/share/nginx/html/storage/logs;
       ```
 
 В курсе будет демонстрация решения, если ты вдруг застрял.
