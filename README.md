@@ -127,6 +127,10 @@
       sed -i "s\^;listen.group = nobody\listen.group = nginx\g" /etc/php-fpm.d/www.conf
       sed -i "s\^;listen.mode = 0660\listen.mode = 0660\g" /etc/php-fpm.d/www.conf
       ```
+    - Установим пакеты pear
+      ```
+      pecl install imagick
+      ```
     - Настроим модуль PHP
       ```
       echo "extension=imagick.so" > /etc/php.d/imagick.ini
@@ -135,7 +139,7 @@
       ```
       systemctl enable --now php-fpm
       ```
-      
+     
 4. Ставим приложение
     - Установим git
       ```
@@ -149,35 +153,37 @@
       ```
       cd /usr/share/nginx/html/public
       ```
-    - создать .env из .env.example
+    - Создадим .env из .env.example
       ```
       cp .env.example .env
       ```
-    - поменять в нем параметры `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` на заданные ранее
+    - Поменять в нем параметр `DB_PASSWORD` на заданный ранее
       ```
       sed -i "s/^DB_PASSWORD=/DB_PASSWORD=my_strong_password/g" .env
       ```
-    - с помощью пакетного менеджера OC установить `composer`
+    - Установим `composer 2`
       ```
-      yum install -y composer
+      php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+      php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+      php -r "unlink('composer-setup.php');"
       ```
-    - подтянуть зависимости проекта с помощью 
+    - Подтянем зависимости проекта 
       ```
       composer install
       ```
-    - выполнить создание ключа приложения 
+    - Выполним создание ключа приложения 
       ```
       php artisan key:generate;
       ```
-    - наполнить базу тестовой информацией
+    - Наполним базу тестовой информацией
       ```
       php artisan migrate --seed;
       ```
-    - создать символические ссылки для хранилища 
+    - Создадим символические ссылки для хранилища 
       ```
       rm -rf public/storage; sudo php artisan storage:link;
       ```
-    - дать доступ нужным директориям
+    - Дадим доступ нужным директориям
       ```
       chown -R nginx.nginx /usr/share/nginx/html/;
       chmod -R ug+rwx /usr/share/nginx/html/storage /usr/share/nginx/html/bootstrap/cache;
