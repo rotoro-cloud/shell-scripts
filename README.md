@@ -137,7 +137,18 @@
       ```
       
 4. Ставим приложение
-    - git clone https://github.com/rotoro-cloud/Laravel-Real-Estate-Venue-Portal.git /opt/app
+    - Установим git
+      ```
+      yum -y install git
+      ```
+    - Склонируем репо
+      ```
+      git clone https://github.com/rotoro-cloud/Laravel-Real-Estate-Venue-Portal.git /usr/share/nginx/html/public
+      ```
+    - Перейдем в папку
+      ```
+      cd /usr/share/nginx/html/public
+      ```
     - создать .env из .env.example
       ```
       cp .env.example .env
