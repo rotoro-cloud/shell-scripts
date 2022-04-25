@@ -193,5 +193,16 @@
       chmod -R ug+rwx /usr/share/nginx/html/storage /usr/share/nginx/html/bootstrap/cache;
       chmod -R o+rwx /usr/share/nginx/html/storage/logs;
       ```
+      
+5. Ставим файрволл
+    - Установим firewalld
+      ```
+      yum -y install firewalld
+      ```
+    - Настроим firewalld
+      ```
+      firewalld-cmd --permanent --zone=public --add-port=80/tcp
+      firewalld-cmd --reload
+      ```
 
 В курсе будет демонстрация решения, если ты вдруг застрял.
