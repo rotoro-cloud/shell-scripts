@@ -129,7 +129,7 @@
       ```
     - Установим пакеты pear
       ```
-      pecl install imagick
+      yes '' | pecl install imagick
       ```
     - Настроим модуль PHP
       ```
