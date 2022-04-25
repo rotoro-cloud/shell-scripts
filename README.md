@@ -129,7 +129,7 @@
       ```
     - Настроим модуль PHP
       ```
-      cat "extension=imagick.so" > /etc/php.d/imagick.ini
+      echo "extension=imagick.so" > /etc/php.d/imagick.ini
       ```
     - Запустим PHP-FPM и поставим в автозагрузку
       ```
