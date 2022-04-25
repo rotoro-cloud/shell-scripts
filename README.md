@@ -42,10 +42,6 @@
       EOS
 
 2. Установим Nginx 
-    - Установим вспомогательные утилиты
-      ```
-      yum install -y wget net-tools
-      ```
     - Добавим репозиторий Nginx
       ```
       (cat <<-EOF
@@ -113,8 +109,8 @@
     - Установим репозитории EPEL и Remi, там свежий PHP
       ```
       yum install -y yum-utils
-      yum localinstall https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-      yum localinstall https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+      yum localinstall -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      yum localinstall -y https://rpms.remirepo.net/enterprise/remi-release-7.rpm
       yum-config-manager --enable remi-php74
       yum makecache fast
       ```
