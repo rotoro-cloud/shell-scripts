@@ -28,7 +28,7 @@
       ```
       mysql -sfu root <<EOS
       -- set root password
-      UPDATE mysql.user SET Password=PASSWORD('my_strong_password') WHERE User='root';
+      ALTER USER 'root'@'localhost' IDENTIFIED BY 'my_strong_password';
       -- delete anonymous users
       DELETE FROM mysql.user WHERE User='';
       -- delete remote root capabilities
