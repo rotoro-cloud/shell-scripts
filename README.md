@@ -199,10 +199,14 @@
       ```
       yum -y install firewalld
       ```
+    - Запустим firewalld и поставим в автозагрузку
+      ```
+      systemctl enable --now firewalld
+      ```
     - Настроим firewalld
       ```
-      firewalld-cmd --permanent --zone=public --add-port=80/tcp
-      firewalld-cmd --reload
+      firewall-cmd --permanent --zone=public --add-port=80/tcp
+      firewall-cmd --reload
       ```
 
 В курсе будет демонстрация решения, если ты вдруг застрял.
