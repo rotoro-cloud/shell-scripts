@@ -78,11 +78,11 @@
           listen       80;
           server_name  *.environments.katacoda.com;
 
-          root   /usr/share/nginx/html/public;
+          root   /usr/share/nginx/html/public/public;
           index index.php index.html index.htm;
 
           location / {
-              try_files \$uri \$uri/ /index.php;
+              try_files \$uri \$uri/ /index.php\$is_args\$args;
           }
           error_page 404 /404.html;
           error_page 500 502 503 504 /50x.html;
@@ -171,7 +171,7 @@
       ```
     - Подтянем зависимости проекта 
       ```
-      composer update
+      /usr/local/bin/composer update
       ```
     - Выполним создание ключа приложения 
       ```
@@ -183,7 +183,9 @@
       ```
     - Создадим символические ссылки для хранилища 
       ```
-      rm -rf public/storage; sudo php artisan storage:link;
+      rm -rf public/storage; 
+      sudo php artisan storage:link;
+      sed -i "s\'url' => '/storage',\'url' => env('APP_URL').'/storage',\g" /usr/share/nginx/html/public/config/filesystems.php
       ```
     - Дадим доступ нужным директориям
       ```
@@ -206,6 +208,7 @@
     - Настроим firewalld
       ```
       firewall-cmd --permanent --zone=public --add-port=80/tcp
+      firewall-cmd --permanent --zone=public --add-port=3306/tcp
       firewall-cmd --reload
       ```
 
