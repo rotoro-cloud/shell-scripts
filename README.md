@@ -199,12 +199,6 @@
       ```
       sudo rm -rf public/storage; 
       sudo php artisan storage:link;
-      sudo vi /usr/share/nginx/html/public/config/filesystems.php
-      ```
-      Здесь замени 'url' в 'disks'->'public':
-      ```
-      'url' => env('APP_URL').'/storage',
-      ```
     - Дадим доступ нужным директориям
       ```
       sudo chown -R nginx.nginx /usr/share/nginx/html/;
