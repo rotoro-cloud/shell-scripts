@@ -71,7 +71,7 @@
       ```
     - Настроим Nginx
       ```
-      sudo cattee -a /etc/nginx/conf.d/default.conf >/dev/null <'EOF'
+      sudo bash -c 'cat << EOF > /etc/nginx/conf.d/default.conf
       server {
           listen       80;
           server_name  *.dusha.name;
@@ -97,7 +97,7 @@
               include fastcgi_params;
           }
       }
-      EOF
+      EOF'
       ```
     - Запустим Nginx и поставим в автозагрузку
       ```
