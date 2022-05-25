@@ -11,7 +11,6 @@
 1. Установим MariaDB
     - Установим вспомогательные утилиты
       ```
-      sudo yum update -y
       sudo yum install -y wget net-tools
       ```
     - Добавим репозиторий MariaDB
