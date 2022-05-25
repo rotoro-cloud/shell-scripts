@@ -67,7 +67,7 @@
       ```
     - Включим репозиторий nginx-mainline
       ```
-      sudo yum --enablerepo=nginx-mainline update
+      sudo yum --enablerepo=nginx-mainline -y update
       ```
     - Установим Nginx и OpenSSL
       ```
