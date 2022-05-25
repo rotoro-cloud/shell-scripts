@@ -181,7 +181,7 @@
     - Создадим символические ссылки для хранилища 
       ```
       sudo rm -rf public/storage; 
-      php artisan storage:link;
+      sudo php artisan storage:link;
       ```
     - Дадим доступ нужным директориям
       ```
