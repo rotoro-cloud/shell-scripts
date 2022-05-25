@@ -45,7 +45,7 @@
 2. Установим Nginx 
     - Добавим репозиторий Nginx
       ```
-      sudo tee -a /etc/yum.repos.d/nginx.repo >/dev/null <'EOF'
+      sudo bash -c 'cat << EOF > /etc/yum.repos.d/nginx.repo
       [nginx-stable]
       name=nginx stable repo
       baseurl=http://nginx.org/packages/centos/7/x86_64/
@@ -59,7 +59,7 @@
       gpgcheck=1
       enabled=1
       gpgkey=https://nginx.org/keys/nginx_signing.key
-      EOF
+      EOF'
       ```
     - Включим репозиторий nginx-mainline
       ```
@@ -71,7 +71,7 @@
       ```
     - Настроим Nginx
       ```
-      sudo tee -a /etc/nginx/conf.d/default.conf >/dev/null <'EOF'
+      sudo cattee -a /etc/nginx/conf.d/default.conf >/dev/null <'EOF'
       server {
           listen       80;
           server_name  *.dusha.name;
