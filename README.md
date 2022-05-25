@@ -152,10 +152,6 @@
       ```
       sudo systemctl enable --now php-fpm
       ```
-    - Перезагрузим nginx
-      ```
-      sudo nginx -s reload
-      ```
      
 4. Ставим приложение
     - Установим git
