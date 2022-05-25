@@ -74,7 +74,7 @@
       sudo tee -a /etc/nginx/conf.d/default.conf >/dev/null <<'EOF'
       server {
           listen       80;
-          server_name  *.environments.katacoda.com;
+          server_name  *.dusha.name;
 
           root   /usr/share/nginx/html/public/public;
           index index.php index.html index.htm;
