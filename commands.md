@@ -182,7 +182,6 @@
       ```
       sudo rm -rf public/storage; 
       sudo php artisan storage:link;
-      sed -i "s\'url' => '/storage',\'url' => env('APP_URL').'/storage',\g" /usr/share/nginx/html/public/config/filesystems.php
       ```
     - Дадим доступ нужным директориям
       ```
