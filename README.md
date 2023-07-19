@@ -4,7 +4,7 @@
 
 В рамках финального задания для новичков я предлагаю "испачкать руки" и развернуть приложение с большим количеством зависимостей на нашем тестовом стенде.
 
-Нужно создать скрипт, который выполнит развертывание приложения на узле `starbase`. Тестовый стенд на базе CentOS 7.
+Нужно создать скрипт, который выполнит развертывание приложения на узле `starbase`. Тестовый стенд на базе CentOS 9.
 
 Эта инструкция подразумевает развертывание вручную.
 
@@ -15,13 +15,13 @@
       ```
     - Добавим репозиторий MariaDB
       ```
-      wget https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+      wget https://downloads.mariadb.com/mariadb/mariadb_repo_setup
       chmod a+x mariadb_repo_setup 
       sudo ./mariadb_repo_setup --mariadb-server-version=mariadb-10.6
       ```
     - Установка самой MariaDB
       ```
-      sudo yum install -y MariaDB-server
+      sudo yum install -y mariadb-server
       ```
     - Запустим MariaDB и поставим в автозагрузку
       ```
@@ -44,30 +44,6 @@
       ```
 
 2. Установим Nginx 
-    - Добавим репозиторий Nginx
-      ```
-      sudo vi /etc/yum.repos.d/nginx.repo
-      ```
-      Сюда вставь такие строки:
-      ```
-      [nginx-stable]
-      name=nginx stable repo
-      baseurl=http://nginx.org/packages/centos/7/x86_64/
-      gpgcheck=1
-      enabled=0
-      gpgkey=https://nginx.org/keys/nginx_signing.key
- 
-      [nginx-mainline]
-      name=nginx mainline repo
-      baseurl=http://nginx.org/packages/mainline/centos/7/x86_64/
-      gpgcheck=1
-      enabled=1
-      gpgkey=https://nginx.org/keys/nginx_signing.key
-      ```
-    - Включим репозиторий nginx-mainline
-      ```
-      sudo yum --enablerepo=nginx-mainline -y update
-      ```
     - Установим Nginx и OpenSSL
       ```
       sudo yum -y install nginx openssl
@@ -97,7 +73,7 @@
 
           location ~ \.php$ {
               try_files $uri =404;
-              fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
+              fastcgi_pass unix:/var/run/php-fpm/www.sock;
               fastcgi_index index.php;
               fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
               include fastcgi_params;
@@ -109,16 +85,8 @@
       sudo systemctl enable --now nginx
       ```
 
-3. Установим PHP-FPM 7.4
-    - Установим репозитории EPEL и Remi, там свежий PHP
-      ```
-      sudo yum install -y yum-utils
-      sudo yum localinstall -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-      sudo yum localinstall -y https://rpms.remirepo.net/enterprise/remi-release-7.rpm
-      sudo yum-config-manager --enable remi-php74
-      sudo yum makecache fast
-      ```
-    - Установим PHP 7.4
+3. Установим PHP-FPM 8
+    - Установим PHP и дополнительные пакеты
       ```
       sudo yum install -y php-cli php-fpm php-common php-curl php-gd php-imap php-intl php-mbstring php-xml php-zip php-bz2 php-bcmath php-json php-opcache php-devel php-mysqlnd php-pear gcc ImageMagick ImageMagick-devel
       ```
@@ -130,7 +98,7 @@
       ```
       user = apache => user = nginx
       group = apache => group = nginx
-      listen = 127.0.0.1:9000 => listen = /var/run/php-fpm/php-fpm.sock
+      listen = 127.0.0.1:9000 => listen = /var/run/php-fpm/www.sock
       ;listen.owner = nobody => listen.owner = nginx
       ;listen.group = nobody => listen.group = nginx
       ;listen.mode = 0660 => listen.mode = 0660
@@ -224,4 +192,7 @@
       sudo firewall-cmd --reload
       ```
 
-В курсе будет демонстрация решения, если ты вдруг застрял.
+В курсе будет демонстрация решения, если ты вдруг застрял. 
+
+Обрати внимание, что демо сейчас на версии CentOS 7, а это решение уже для CentOS 9.
+Отличия в том, что нам не требуется устанавливать дополнительные репозитории.
