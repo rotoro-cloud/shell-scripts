@@ -76,16 +76,8 @@
       sudo systemctl enable --now nginx
       ```
 
-3. Установим PHP-FPM 7.4
-    - Установим репозитории EPEL и Remi, там свежий PHP
-      ```
-      sudo yum install -y yum-utils
-      sudo yum localinstall -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-      sudo yum localinstall -y https://rpms.remirepo.net/enterprise/remi-release-7.rpm
-      sudo yum-config-manager --enable remi-php74
-      sudo yum makecache fast
-      ```
-    - Установим PHP 7.4
+3. Установим PHP-FPM 8
+    - Установим PHP
       ```
       sudo yum install -y php-cli php-fpm php-common php-curl php-gd php-intl php-mbstring php-xml php-zip php-bz2 php-bcmath php-json php-opcache php-devel php-mysqlnd php-pear gcc ImageMagick ImageMagick-devel
       ```
@@ -93,7 +85,6 @@
       ```
       sudo sed -i "s\^user = apache\user = nginx\g" /etc/php-fpm.d/www.conf
       sudo sed -i "s\^group = apache\group = nginx\g" /etc/php-fpm.d/www.conf
-      sudo sed -i "s\^listen = 127.0.0.1:9000\listen = /var/run/php-fpm/www.sock\g" /etc/php-fpm.d/www.conf
       sudo sed -i "s\^;listen.owner = nobody\listen.owner = nginx\g" /etc/php-fpm.d/www.conf
       sudo sed -i "s\^;listen.group = nobody\listen.group = nginx\g" /etc/php-fpm.d/www.conf
       sudo sed -i "s\^;listen.mode = 0660\listen.mode = 0660\g" /etc/php-fpm.d/www.conf
