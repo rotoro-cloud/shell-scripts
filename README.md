@@ -13,13 +13,7 @@
       ```
       sudo yum install -y wget net-tools
       ```
-    - Добавим репозиторий MariaDB
-      ```
-      wget https://downloads.mariadb.com/mariadb/mariadb_repo_setup
-      chmod a+x mariadb_repo_setup 
-      sudo ./mariadb_repo_setup --mariadb-server-version=mariadb-10.6
-      ```
-    - Установка самой MariaDB
+    - Установка MariaDB
       ```
       sudo yum install -y mariadb-server
       ```
