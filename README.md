@@ -88,7 +88,7 @@
 3. Установим PHP-FPM 8
     - Установим PHP и дополнительные пакеты
       ```
-      sudo yum install -y php-cli php-fpm php-common php-curl php-gd php-imap php-intl php-mbstring php-xml php-zip php-bz2 php-bcmath php-json php-opcache php-devel php-mysqlnd php-pear gcc ImageMagick ImageMagick-devel
+      sudo yum install -y php-cli php-fpm php-common php-curl php-gd php-intl php-mbstring php-xml php-zip php-bz2 php-bcmath php-json php-opcache php-devel php-mysqlnd php-pear gcc ImageMagick ImageMagick-devel
       ```
     - Поправим php.ini под пользователя nginx
       ```
