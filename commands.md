@@ -1,7 +1,7 @@
 # Тестовое приложение для разворачивания с помощью Shell Scripts 
 [Репозиторий проекта](https://github.com/rotoro-cloud/Laravel-Real-Estate-Venue-Portal)
 
-Эти команды для автоматического развертывания приложения на тестовом стенде `starbase` на базе CentOS 7.
+Эти команды для автоматического развертывания приложения на тестовом стенде `starbase` на базе CentOS 9.
 Таким образом, можно их вставить в свой скрипт для работы лабораторной.
 
 1. Установим MariaDB
@@ -11,13 +11,13 @@
       ```
     - Добавим репозиторий MariaDB
       ```
-      wget https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+      wget https://downloads.mariadb.com/mariadb/mariadb_repo_setup
       chmod a+x mariadb_repo_setup 
       sudo ./mariadb_repo_setup --mariadb-server-version=mariadb-10.6
       ```
     - Установка самой MariaDB
       ```
-      sudo yum install -y MariaDB-server
+      sudo yum install -y mariadb-server
       ```
     - Запустим MariaDB и поставим в автозагрузку
       ```
@@ -43,28 +43,6 @@
       EOS
 
 2. Установим Nginx 
-    - Добавим репозиторий Nginx
-      ```
-      sudo bash -c 'cat << EOF > /etc/yum.repos.d/nginx.repo
-      [nginx-stable]
-      name=nginx stable repo
-      baseurl=http://nginx.org/packages/centos/7/x86_64/
-      gpgcheck=1
-      enabled=0
-      gpgkey=https://nginx.org/keys/nginx_signing.key
- 
-      [nginx-mainline]
-      name=nginx mainline repo
-      baseurl=http://nginx.org/packages/mainline/centos/7/x86_64/
-      gpgcheck=1
-      enabled=1
-      gpgkey=https://nginx.org/keys/nginx_signing.key
-      EOF'
-      ```
-    - Включим репозиторий nginx-mainline
-      ```
-      sudo yum -y --enablerepo=nginx-mainline update
-      ```
     - Установим Nginx и OpenSSL
       ```
       sudo yum -y install nginx openssl
@@ -91,7 +69,7 @@
 
           location ~ \.php$ {
               try_files \$uri =404;
-              fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
+              fastcgi_pass unix:/var/run/php-fpm/www.sock;
               fastcgi_index index.php;
               fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
               include fastcgi_params;
@@ -115,13 +93,13 @@
       ```
     - Установим PHP 7.4
       ```
-      sudo yum install -y php-cli php-fpm php-common php-curl php-gd php-imap php-intl php-mbstring php-xml php-zip php-bz2 php-bcmath php-json php-opcache php-devel php-mysqlnd php-pear gcc ImageMagick ImageMagick-devel
+      sudo yum install -y php-cli php-fpm php-common php-curl php-gd php-intl php-mbstring php-xml php-zip php-bz2 php-bcmath php-json php-opcache php-devel php-mysqlnd php-pear gcc ImageMagick ImageMagick-devel
       ```
     - Поправим php.ini под пользователя nginx
       ```
       sudo sed -i "s\^user = apache\user = nginx\g" /etc/php-fpm.d/www.conf
       sudo sed -i "s\^group = apache\group = nginx\g" /etc/php-fpm.d/www.conf
-      sudo sed -i "s\^listen = 127.0.0.1:9000\listen = /var/run/php-fpm/php-fpm.sock\g" /etc/php-fpm.d/www.conf
+      sudo sed -i "s\^listen = 127.0.0.1:9000\listen = /var/run/php-fpm/www.sock\g" /etc/php-fpm.d/www.conf
       sudo sed -i "s\^;listen.owner = nobody\listen.owner = nginx\g" /etc/php-fpm.d/www.conf
       sudo sed -i "s\^;listen.group = nobody\listen.group = nginx\g" /etc/php-fpm.d/www.conf
       sudo sed -i "s\^;listen.mode = 0660\listen.mode = 0660\g" /etc/php-fpm.d/www.conf
